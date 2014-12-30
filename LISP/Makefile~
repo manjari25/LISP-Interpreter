@@ -1,0 +1,33 @@
+# C++ compiler
+CXX = g++
+
+# C++ compiler flags
+CXXFLAGS = -g -Wall
+
+# Creating a .o file
+COMPILE = $(CXX) $(CXXFLAGS) -c
+
+# Name of the executable; should match the contents of Runfile
+EXE = myInterpreter
+
+# All object files
+OBJS = myInterpreterMain.o mySexp.o myTokenize.o myParse.o myEvaluator.o
+
+# The first target is the one that is executed when you invoke
+# "make". The line describing the action starts with <TAB>. Variable
+# "$@" stands for the current target. 
+
+$(EXE) : $(OBJS) # depends on all object files
+	$(CXX) $^ -o $@
+
+# An object file is dependent on the corresponding source file
+
+%.o : %.cc
+	$(COMPILE) -o $@ $<
+
+myInterpreterMain.o : myTokenize.h myEvaluator.h
+
+myParse.o : mySexp.h
+
+myEvaluator.o : myParse.h
+

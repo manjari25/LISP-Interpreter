@@ -1,0 +1,12 @@
+1). Removed ncurses.h header file,getch() from myTokenize.h, myParse.h, myInterpreterMain.cpp. (Visual Studio allows getch() under conio.h)
+2). Added cstring header file (for strtok()) in myTokenize.h. (Visual Studio includes this header by default)
+3). Created a new string and then passed it to createTokens() in myInterpreterMain.cpp. (Visual Studio allows direct passing by reference)
+
+		createTokens(insertSpaces(input)); 
+		---------changed to--------------
+		string s = insertSpaces(input);
+		createTokens(s);
+
+4). In myEvaluator.cpp, line 16: _int = mp.createSexp("_INT"); ----changed to---- _int = mp.createSexp("INT");
+5). In myInterpreterMain.cpp, line 81, added ++position; and changed position+=1 to ++position.
+6). Included mySexp.o and myTokenize.o in line 14 in Makefile.

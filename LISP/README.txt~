@@ -1,0 +1,77 @@
+CSE 6341, AU2013 - Foundations of Programming Languages
+Lisp Interpreter Project
+11/13/2013
+
+Name: Manjari Akella
+
+Email : akella.4@osu.edu
+	akella@cse.ohio-state.edu
+	asmanjari25@gmail.com
+
+
+                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~DESIGN DESCRIPTION~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+*******************************************************************************************************************************************************************************
+									       Structure
+*******************************************************************************************************************************************************************************
+
+- The design of this project has been structured into 3 blocks - the tokenizer, the parser and the evaluator.
+- I have implemented each of these blocks in a separate header file as a class. In addition to these three classes, I also have a class for handling S-Expressions.
+- The following are the files in this project :
+
+1).myTokenize.h and myTokenize.cpp - handles tokenizing of the input string
+
+2).myParse.h and myParse.cpp - handles parsing of tokens
+
+3).mySexp.h and mySexp.cpp - handles s-expressions, creation/primitives/other functional and relational operations
+
+4).myEvaluator.h and myEvaluator.cpp - handles evaluation of s-expressions
+
+5).myInterpreterMain.cpp - main resides here, calls tokenizer, parser and evaluator to generate output
+
+
+*******************************************************************************************************************************************************************************
+								     Description of files designed
+*******************************************************************************************************************************************************************************
+
+1).myTokenize.h and myTokenize.cpp
+
+-These two files together handle the tokenizing of input string. Standard whitespaces are used as a delimiter.
+-It assumes that only a top level s-expression is sent to it. Hence, \n is not checked as a delimilter.
+-It then inserts a space between every '(' and ')'. This is to deal with invalid token errors.
+-The tokenizer throws an error when an invalid token is encountered and control returns to the OS here itself.
+
+2).myParse.h and myParse.cpp
+
+-These two files together handle parsing of tokens.
+-The parser implements the grammar given in the project description to detect invalid strings.
+-It keeps applying productions and also builds a parse tree side-by-side.
+-The parser throws an error when an invalid string (related to the grammar) is encountered and control returns to the OS here itself.
+
+3).mySexp.h and mySexp.cpp
+-These two files together handle s-expressions.
+-They take care of creation, primitives operations like car,cdr,cons,int,eq,null etc. and other functional and relational operations like plus, minus, less, greater etc.
+
+4).myEvaluator.h and myEvaluator.cpp
+
+-These two files together handle evaluation of s-expressions.
+-They basically contain the functions given in the slides needed to evaluate s-expressions - eval,bound,getVal,evlist,evcon,apply,addpairs.
+-In addition to this there is a function isDistinct. This checks if the arguments to DEFUN are distinct.
+-The evaluator throws all errors related to evaluation - unbound identifier, function undefined for a specific type, invalid number of function parameters etc.
+
+
+*******************************************************************************************************************************************************************************
+       										Working
+*******************************************************************************************************************************************************************************
+
+1).The myInterpreterMain takes input from the standard input.
+2).It then extracts a top-level expression and called the createTokens function to generate tokens.
+3).This is then sent to the parseTokens function which applies productions and returns the parse tree.
+4).The parse tree is then sent to the evaluator which evaluates the s-expression.
+5).If error is encountered in either 2). or 3). or 4). control returns to the OS.
+6).If input is still left unprocessed, control goes back to step 2). and the process is repeated till all input is processed.
+7).If an error is encounterd at any stage, the following phases are not implemented. Program immediately terminates and returns control to the OS.
+
+
+
+						 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~END~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
